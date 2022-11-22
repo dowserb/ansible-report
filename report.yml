@@ -15,9 +15,9 @@
     headers: Hostname,Distro Ver,Kernel Ver,Last Rebooted
 
   tasks:
-  - name: Gather last reboot
-    ansible.builtin.shell: last reboot | grep -m1 "" | awk '{ print $1, $6, $7, $8 }'
-    register: rebooted
+  - ios_command: 
+      commands: 
+        - show running
 
   - name: Save CSV headers
     ansible.builtin.lineinfile:
@@ -48,15 +48,16 @@
 #      var: csv_file
 #    run_once: true
 
-  - name: Send Email
-    community.general.mail:
-      host: "{{ email_host }}"
-      from: "{{ email_from }}"
-      port: 25
-      to: "{{ email_to }}"
-      subject: "[Ansible] {{ email_subject }}"
-      body: "{{ lookup('template', 'report.html.j2') }}"
-      attach: "{{ csv_path }}/{{ csv_filename }}"
-      subtype: html
-    delegate_to: localhost
-    run_once: true
+#  - name: Send Email
+#    community.general.mail:
+#      host: "{{ email_host }}"
+#      from: "{{ email_from }}"
+#      port: 25
+#      to: "{{ email_to }}"
+#      subject: "[Ansible] {{ email_subject }}"
+#      body: "{{ lookup('template', 'report.html.j2') }}"
+#      attach: "{{ csv_path }}/{{ csv_filename }}"
+#      subtype: html
+#    delegate_to: localhost
+#    run_once: true
+#
