@@ -12,7 +12,7 @@
     #random settings
     csv_path: /tmp
     csv_filename: report.csv
-    headers: Hostname,Distro Ver,Kernel Ver,Last Rebooted
+    headers: Hostname,Ver,uptime
 
   tasks:
   - ios_command: 
